@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import connectDB from './db/mongoDb.js';
+import { protect, admin } from './middleware/authMiddleware.js';
 
 import authRouter from './routes/auth.js';
 import statsRouter from './routes/stats.js';
@@ -43,8 +44,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
-import { protect, admin } from './middleware/authMiddleware.js';
-
 app.use('/api/auth', authRouter);
 app.use('/api/stats', protect, statsRouter);
 app.use('/api/alerts', protect, alertsRouter);
